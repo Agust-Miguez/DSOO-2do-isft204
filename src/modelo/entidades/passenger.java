@@ -6,8 +6,8 @@ package modelo.entidades;
 
 /**
  *
- * @author LENOVO
+ * @author feffo
  */
-public class Reserva {
+public class passenger {
     
 }
