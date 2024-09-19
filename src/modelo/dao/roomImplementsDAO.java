@@ -1,40 +1,38 @@
 package modelo.dao;
+
 import Exceptions.DuplicateEntryException;
+import Exceptions.NotfoundException;
+import modelo.entidades.room;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.entidades.room;
-import Exceptions.NotfoundException;
-import static java.awt.AWTEventMulticaster.remove;
 
-public class roomImplementsDAO implements DAO <room> {
-    
-    private List <room> rooms; 
-    
-      public roomImplementsDAO(List<room> rooms) {
-        this.rooms = new ArrayList ();
+public class roomImplementsDAO implements DAO<room> {
+
+    private List<room> rooms;
+
+    public roomImplementsDAO(List<room> rooms) {
+        this.rooms = new ArrayList<>();
     }
 
     @Override
-    public void save(room data) throws DuplicateEntryException  {
-     for ( room s : this.rooms){
-         if (s.getId()== data.getId()){
-             throw new DuplicateEntryException ("Room whit " + data.getId() +" already exists if your create new Room press 1 or 2 for update");
-             /*if (Dependiendo el requeriemiento por consola o interfaz grafica llamo a la funcion update o creo nuevo elemento)*/
-                 
-         }
-     }
-     data.setId(this.rooms.size()+1);
-     this.rooms.add(data);
-    } 
-    
+    public void save(room data) throws DuplicateEntryException {
+        for (room s : this.rooms) {
+            if (s.getId() == data.getId()) {
+                throw new DuplicateEntryException("Room with ID " + data.getId() + " already exists. Use update to modify.");
+            }
+        }
+        data.setId(this.rooms.size() + 1);
+        this.rooms.add(data);
+    }
+
     @Override
-    public room getById(int id)throws NotfoundException {
-        for (room room : this.rooms){
-            if (room.getId() == id){
+    public room getById(int id) throws NotfoundException {
+        for (room room : this.rooms) {
+            if (room.getId() == id) {
                 return room;
             }
-        }   
-        throw new NotfoundException ("Room whit id " + id + "not found");
+        }
+        throw new NotfoundException("Room with ID " + id + " not found.");
     }
 
     @Override
@@ -43,33 +41,36 @@ public class roomImplementsDAO implements DAO <room> {
     }
 
     @Override
-    public void update(room data) {
-         for ( room s : this.rooms){
-         if (s.getId()== data.getId()){  
-         }
-     }
+    public void update(room data) throws NotfoundException {
+        int index = -1;
+        for (int i = 0; i < this.rooms.size(); i++) {
+            if (this.rooms.get(i).getId() == data.getId()) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            throw new NotfoundException("Room with ID " + data.getId() + " not found.");
+        }
+        this.rooms.set(index, data);
     }
 
     @Override
-    public void delete(room data) {
-              for ( room s : this.rooms){
-         if (s.getId()== data.getId()){
-            rooms.remove(data.getId());
-         }    
-         }
+    public void delete(room data) throws NotfoundException {
+        int index = -1;
+        for (int i = 0; i < this.rooms.size(); i++) {
+            if (this.rooms.get(i).getId() == data.getId()) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            throw new NotfoundException("Room with ID " + data.getId() + " not found.");
+        }
+        this.rooms.remove(index);
     }
-
-    private void getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    private void remove(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-  
-    
-    
-    
-    
 }
+
+    
+    
+    
