@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package modelo.entidades;
 
 import java.io.Serializable;
@@ -11,15 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author feffo
- */
+
 @Entity
 @Table (name = "Habitaciones")
-public class room implements Serializable {
+@NamedQuery (name = "room.findAll", query = "SELECT r FROM room r")
+@NamedQuery (name = "room.find", query = "SELECT r.id FROM room WHERE r.id == id")
+@NamedQuery (name = "room.findAll", query = "DETELE FROM room where r")
+
+public class rooms implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -34,14 +33,14 @@ public class room implements Serializable {
     @Column (name="Precio por dia")
     private int price_For_Day;
     
-    public room(Long id, int single_Bed, int double_Bed, int price_For_Day) {
-        this.id = id;
+    public rooms ( long id, int single_Bed, int double_Bed, int price_For_Day) {
+        this.id= id;
         this.single_Bed = single_Bed;
         this.double_Bed = double_Bed;
         this.price_For_Day = price_For_Day;
     }
 
-    public room() {
+    public rooms() {
     }
 
     public static long getSerialVersionUID() {
@@ -101,7 +100,7 @@ public class room implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final room other = (room) obj;
+        final rooms other = (rooms) obj;
         if (this.single_Bed != other.single_Bed) {
             return false;
         }
