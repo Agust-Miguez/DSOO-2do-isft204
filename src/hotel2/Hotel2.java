@@ -26,7 +26,7 @@ public class Hotel2 {
       Long up = Long.valueOf(u);
       List <passengers> pass_List = new ArrayList <>();
       
-      passengers p = new passengers("dfdg","dssdf",s,s,"fsdd");
+      passengers p = new passengers("dfdg","dssdf",s,s,"fsdd", s);
       passanger_DAO o = new passanger_DAO();
            
       /*o.save(p);*/

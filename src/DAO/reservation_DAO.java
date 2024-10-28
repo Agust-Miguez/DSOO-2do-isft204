@@ -1,53 +1,35 @@
-/*
+
 package DAO;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import entitys.reservation;
+import java.util.ArrayList;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author feffo
- *//*
+ */
 public class reservation_DAO implements DAO <reservation> {
     
-  @Override
-  public void save(reservation data) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
-        EntityManager em = emf.createEntityManager();
-        
-       try {
-           em.getTransaction().begin();
-           em.persist(data);
-           em.getTransaction().commit();   
-       }
-       catch (Exception e){
-           em.getTransaction().rollback();
-           }
-       finally{
-           em.close();
-
-       }
-           
-       
-    }
-
-    @Override
+@Override
     public List<reservation> listall() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
         EntityManager em = emf.createEntityManager();
-        List <reservation> pass = null;
+        List <reservation> pass = new ArrayList <> ();
     
     try {
         em.getTransaction().begin();  
-        Query q = em.createNamedQuery("reservation_finALl");
-        pass = q.getResultList();
+        TypedQuery<reservation> query = em.createQuery("SELECT p FROM reservation p", reservation.class);
+        pass = query.getResultList();
         em.getTransaction().commit();
     }       
     catch (Exception e) {
+        
+        System.out.println ("error");
         em.getTransaction().rollback();
     }             
     finally {
@@ -55,22 +37,28 @@ public class reservation_DAO implements DAO <reservation> {
     }
     return pass;
     }
-    
+   
     @Override
-    public void update(reservation data) {
+    public void update(Long id, reservation p){
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
         EntityManager em = emf.createEntityManager();
         
     try {
         em.getTransaction().begin();
-        Query q = em.createNamedQuery("reservation_update");
-        em.persist(data);
-        em.getTransaction().commit();   
+        
+        reservation r_Upd = em.find( reservation.class , id);
+        r_Upd.setDate_Check_In(p.getDate_Check_In());
+        r_Upd.setDate_Chek_Out(p.getDate_Chek_Out());
+        
+        em.getTransaction().commit();  
     }
     catch (Exception e){
+        System.out.println ("error");
         em.getTransaction().rollback();
     }
     finally{
+        
         em.close();
 
     }
@@ -79,14 +67,60 @@ public class reservation_DAO implements DAO <reservation> {
     }
 
     @Override
-    public void delete(reservation data) {
+    public reservation getById(Long id) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
+        EntityManager em = emf.createEntityManager();
+        reservation p= new reservation ();
+    
+    try{
+        p = em.find(reservation.class, id);
+        
+
+    }
+      catch (Exception e) {
+        em.getTransaction().rollback();
+    }
+      finally {
+    }
+      return p ;
+        
+
+    
+  }
+/*funciona*/
+    @Override
+    public void save(reservation reservation) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
+        EntityManager em = emf.createEntityManager();
+        
+
+        
+       try {
+           em.getTransaction().begin();  
+           em.persist(reservation);
+           em.getTransaction().commit();
+       }
+       catch (Exception e){
+           System.out.println ("error");
+           em.getTransaction().rollback();
+           }
+       finally{
+           em.close();
+
+       }
+    }
+
+ 
+/*funciona*/
+    @Override
+    public void delete(Long i) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
         EntityManager em = emf.createEntityManager();
       
     try{
         em.getTransaction().begin();  
-        Query q = em.createNamedQuery("reservation_delete");
-        em.remove(data);
+        reservation p =  em.find(reservation.class, i);
+        em.remove(p);
         em.getTransaction().commit();
     }
     catch (Exception e) {
@@ -96,24 +130,4 @@ public class reservation_DAO implements DAO <reservation> {
         em.close();
       }
     }
-
-    @Override
-    public reservation getById(reservation id) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
-        EntityManager em = emf.createEntityManager();
-    
-    
-    try{
-        em.find(reservation.class, id);
-    }
-      catch (Exception e) {
-        em.getTransaction().rollback();
-    }
-      finally {
-        return em.find(reservation.class, id); 
-    }
-        }
-    }
-
-
-*/
+  } 

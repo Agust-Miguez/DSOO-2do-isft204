@@ -2,45 +2,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-/*
-package model.entitys;
+package entitys;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.logging.Logger;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  *
  * @author feffo
  */
-/* 
 @Entity
-@Table (name="rooms")
 public class rooms implements Serializable {
-    
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name="rooms_ID")
-    
     private Long id;
-    @Column (name="sigle_Bed")
+    @Column (name="Camas_Simples")
     private int single_Bed;
-    @Column (name="Double_Bed")
+    @Column(name="Camas_Dobles")
     private int double_Bed;
-   @Column (name="Pirce_For_Day")
+    @Column (name="Precio_por_dia")
     private int price_For_Day;
-    @Column (name="Reserva")
-    @OneToOne
-    @JoinColumn(name="Reserva_ID")
-    private reservation reserve;
+    @Column (name="ID_Reserva")
+    private Long id_Reserva;
+    @Column (name="Disponibilidad")
+    private Boolean disponibilidad;
+
+    public rooms() {
+    }
 
     public rooms(int single_Bed, int double_Bed, int price_For_Day) {
         this.single_Bed = single_Bed;
@@ -48,15 +43,17 @@ public class rooms implements Serializable {
         this.price_For_Day = price_For_Day;
     }
 
-    public rooms() {
-    }
-
-    public rooms(Long id, int single_Bed, int double_Bed, int price_For_Day, reservation reserve) {
+    public rooms(Long id, int single_Bed, int double_Bed, int price_For_Day, Long id_Reserva, Boolean disponibilidad) {
         this.id = id;
         this.single_Bed = single_Bed;
         this.double_Bed = double_Bed;
         this.price_For_Day = price_For_Day;
-        this.reserve = reserve;
+        this.id_Reserva = id_Reserva;
+        this.disponibilidad = disponibilidad;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Long getId() {
@@ -75,8 +72,12 @@ public class rooms implements Serializable {
         return price_For_Day;
     }
 
-    public reservation getReserve() {
-        return reserve;
+    public Long getId_Reserva() {
+        return id_Reserva;
+    }
+
+    public Boolean getDisponibilidad() {
+        return disponibilidad;
     }
 
     public void setId(Long id) {
@@ -95,18 +96,23 @@ public class rooms implements Serializable {
         this.price_For_Day = price_For_Day;
     }
 
-    public void setReserve(reservation reserve) {
-        this.reserve = reserve;
+    public void setId_Reserva(Long id_Reserva) {
+        this.id_Reserva = id_Reserva;
+    }
+
+    public void setDisponibilidad(Boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.id);
-        hash = 23 * hash + this.single_Bed;
-        hash = 23 * hash + this.double_Bed;
-        hash = 23 * hash + this.price_For_Day;
-        hash = 23 * hash + Objects.hashCode(this.reserve);
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + this.single_Bed;
+        hash = 11 * hash + this.double_Bed;
+        hash = 11 * hash + this.price_For_Day;
+        hash = 11 * hash + Objects.hashCode(this.id_Reserva);
+        hash = 11 * hash + Objects.hashCode(this.disponibilidad);
         return hash;
     }
 
@@ -134,15 +140,17 @@ public class rooms implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return Objects.equals(this.reserve, other.reserve);
+        if (!Objects.equals(this.id_Reserva, other.id_Reserva)) {
+            return false;
+        }
+        return Objects.equals(this.disponibilidad, other.disponibilidad);
     }
 
     @Override
     public String toString() {
-        return "rooms{" + "id=" + id + ", single_Bed=" + single_Bed + ", double_Bed=" + double_Bed + ", price_For_Day=" + price_For_Day + ", reserve=" + reserve + '}';
+        return "rooms{" + "id=" + id + ", single_Bed=" + single_Bed + ", double_Bed=" + double_Bed + ", price_For_Day=" + price_For_Day + ", id_Reserva=" + id_Reserva + ", disponibilidad=" + disponibilidad + '}';
     }
+
     
-
-   
-    */
-
+    
+}

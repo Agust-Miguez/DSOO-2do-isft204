@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +19,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="pasajeros") 
-@NamedQuery (name = "pass_findAll", query = "SELECT r FROM passengers r")
-@NamedQuery (name = "pass_find", query = "SELECT r FROM passengers r WHERE r = :ID")
-@NamedQuery (name = "pass_delete", query = "DELETE FROM passengers r WHERE r = :ID")
 public class passengers implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,16 +35,27 @@ public class passengers implements Serializable {
     private Long phone_Number;
     @Column (name="Email")
     private String email;
+    @Column(name="Reserva_ID")
+    private long id_Reserva;
 
     public passengers() {
     }
 
-    public passengers(String name, String last_Name, Long dni, Long phone_Number, String email) {
+    public passengers(String name, String last_Name, Long dni, Long phone_Number, String email, Long id_Reserva) {
         this.name = name;
         this.last_Name = last_Name;
         this.dni = dni;
         this.phone_Number = phone_Number;
         this.email = email;
+        this.id_Reserva=id_Reserva;
+    }
+
+    public void setId_Reserva(long id_Reserva) {
+        this.id_Reserva = id_Reserva;
+    }
+
+    public long getId_Reserva() {
+        return id_Reserva;
     }
 
     public Long getId() {
@@ -105,13 +112,14 @@ public class passengers implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.name);
-        hash = 11 * hash + Objects.hashCode(this.last_Name);
-        hash = 11 * hash + Objects.hashCode(this.dni);
-        hash = 11 * hash + Objects.hashCode(this.phone_Number);
-        hash = 11 * hash + Objects.hashCode(this.email);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.last_Name);
+        hash = 97 * hash + Objects.hashCode(this.dni);
+        hash = 97 * hash + Objects.hashCode(this.phone_Number);
+        hash = 97 * hash + Objects.hashCode(this.email);
+        hash = 97 * hash + (int) (this.id_Reserva ^ (this.id_Reserva >>> 32));
         return hash;
     }
 
@@ -127,6 +135,9 @@ public class passengers implements Serializable {
             return false;
         }
         final passengers other = (passengers) obj;
+        if (this.id_Reserva != other.id_Reserva) {
+            return false;
+        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -147,8 +158,10 @@ public class passengers implements Serializable {
 
     @Override
     public String toString() {
-        return "passangers{" + "id=" + id + ", name=" + name + ", last_Name=" + last_Name + ", dni=" + dni + ", phone_Number=" + phone_Number + ", email=" + email + '}';
+        return "passengers{" + "id=" + id + ", name=" + name + ", last_Name=" + last_Name + ", dni=" + dni + ", phone_Number=" + phone_Number + ", email=" + email + ", id_Reserva=" + id_Reserva + '}';
     }
+
+  
     
 }
 

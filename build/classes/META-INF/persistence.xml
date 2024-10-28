@@ -3,6 +3,8 @@
   <persistence-unit name="hotel" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entitys.passengers</class>
+    <class>entitys.rooms</class>
+    <class>entitys.reservation</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hotel?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=America/Argentina/Buenos_Aires"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
