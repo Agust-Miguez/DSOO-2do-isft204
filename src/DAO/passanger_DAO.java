@@ -13,12 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 
 
 public class passanger_DAO implements DAO<passengers>{
     
-
+     /*funciona*/
     @Override
     public List<passengers> listall() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
@@ -27,11 +28,13 @@ public class passanger_DAO implements DAO<passengers>{
     
     try {
         em.getTransaction().begin();  
-        Query q = em.createNamedQuery("pass_finALl");
-        pass = q.getResultList();
+        TypedQuery<passengers> query = em.createQuery("SELECT p FROM passengers p", passengers.class);
+        pass = query.getResultList();
         em.getTransaction().commit();
     }       
     catch (Exception e) {
+        
+        System.out.println ("error");
         em.getTransaction().rollback();
     }             
     finally {
@@ -39,25 +42,30 @@ public class passanger_DAO implements DAO<passengers>{
     }
     return pass;
     }
-    
+   
     @Override
-    public void update(passengers passenger) {
+    public void update(Long id, passengers p){
         
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
         EntityManager em = emf.createEntityManager();
         
     try {
         em.getTransaction().begin();
-        em.find( passengers.class , passenger.getId() );
-        Query query = em.createQuery("UPDATE passenger p SET p.dni = ID WHERE p.id = :ID");
-        query.setParameter(":p", passengers.class );  
-        int i = query.executeUpdate(); 
+        
+        passengers p_Upd = em.find( passengers.class , id);
+        p_Upd.setName(p.getName()); 
+        p_Upd.setLast_Name(p.getLast_Name());
+        p_Upd.setDni(p.getDni());
+        p_Upd.setPhone_Number(p.getPhone_Number());
+        p_Upd.setEmail(p.getEmail());
         em.getTransaction().commit();  
     }
     catch (Exception e){
+        System.out.println ("error");
         em.getTransaction().rollback();
     }
     finally{
+        
         em.close();
 
     }
@@ -66,32 +74,13 @@ public class passanger_DAO implements DAO<passengers>{
     }
 
     @Override
-    public void delete(passengers passenger) {
+    public passengers getById(Long id) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
         EntityManager em = emf.createEntityManager();
-      
-    try{
-        em.getTransaction().begin();  
-        Query q = em.createNamedQuery("pass_delete");
-        em.remove(passenger);
-        em.getTransaction().commit();
-    }
-    catch (Exception e) {
-        em.getTransaction().rollback();
-    }
-      finally{
-        em.close();
-      }
-    }
-
-    @Override
-    public passengers getById(passengers id) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
-        EntityManager em = emf.createEntityManager();
-    
+        passengers p= new passengers ();
     
     try{
-        em.find(passengers.class, id);
+        p = em.find(passengers.class, id);
         
 
     }
@@ -100,12 +89,12 @@ public class passanger_DAO implements DAO<passengers>{
     }
       finally {
     }
-      return em.find(passengers.class, id);
+      return p ;
         
 
     
   }
-
+/*funciona*/
     @Override
     public void save(passengers passenger) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
@@ -116,18 +105,37 @@ public class passanger_DAO implements DAO<passengers>{
        try {
            em.getTransaction().begin();  
            em.persist(passenger);
-           
+           em.getTransaction().commit();
        }
        catch (Exception e){
            System.out.println ("error");
            em.getTransaction().rollback();
            }
        finally{
-           em.getTransaction().commit();
-           System.out.println ("HDP");
            em.close();
 
        }
+    }
+
+ 
+/*funciona*/
+    @Override
+    public void delete(Long i) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory ("hotel");
+        EntityManager em = emf.createEntityManager();
+      
+    try{
+        em.getTransaction().begin();  
+        passengers p =  em.find(passengers.class, i);
+        em.remove(p);
+        em.getTransaction().commit();
+    }
+    catch (Exception e) {
+        em.getTransaction().rollback();
+    }
+      finally{
+        em.close();
+      }
     }
   }  
 

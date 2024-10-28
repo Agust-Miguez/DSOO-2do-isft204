@@ -6,6 +6,8 @@ package hotel2;
 
 import DAO.passanger_DAO;
 import entitys.passengers;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,15 +20,29 @@ public class Hotel2 {
      */
     public static void main(String[] args) {
       
-      int a = 123;
+      int a = 35;
       Long s = Long.valueOf(a);
+      int u = 2;
+      Long up = Long.valueOf(u);
+      List <passengers> pass_List = new ArrayList <>();
       
-      
-      passengers p = new passengers("dfg","dsf",s,s,"fd");
+      passengers p = new passengers("dfdg","dssdf",s,s,"fsdd");
       passanger_DAO o = new passanger_DAO();
-      o.save(p);
+           
+      /*o.save(p);*/
+     /* o.delete(s);*/
+      passengers us = o.getById(up);
       
       
+      System.out.println(us.toString());
+      
+      
+      o.update(up, p);
+      
+      pass_List = o.listall();
+      for (passengers x: pass_List){
+          System.out.println(x.toString());
+      }
       
     }
     

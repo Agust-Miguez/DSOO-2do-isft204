@@ -10,9 +10,9 @@ public interface DAO<T> {
     
     
     public abstract void save(T data); 
-    public abstract T getById(T id);
+    public abstract T getById(Long id);
     public abstract List<T> listall();
-    public abstract void update(T data);
-    public abstract void delete(T data);
+    public abstract void update(Long i, T T);
+    public abstract void delete(Long i);
   
 }
