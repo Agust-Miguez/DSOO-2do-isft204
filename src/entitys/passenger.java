@@ -41,7 +41,7 @@ public class passenger implements Serializable {
     public passenger() {
     }
 
-    public passenger(String naMe, String last_Name1, Long Dni, Long phone, String email1) {
+    public passenger(String naMe, String last_Name, Long dni, Long phone_Number, String email) {
         this.naMe = naMe;
         this.last_Name = last_Name;
         this.dni = dni;
@@ -49,22 +49,17 @@ public class passenger implements Serializable {
         this.email = email;
     }
 
-    public passenger(Long id, String name, String last_Name, Long dni, Long phone_Number, String email) {
+    public passenger(Long id, String naMe, String last_Name, Long dni, Long phone_Number, String email, long id_Reserva) {
         this.id = id;
-        this.naMe = name;
+        this.naMe = naMe;
         this.last_Name = last_Name;
         this.dni = dni;
         this.phone_Number = phone_Number;
         this.email = email;
+        this.id_Reserva = id_Reserva;
     }
 
-    public passenger(String name, String last_Name, Long dni, Long phone_Number, String email, Long id_Reserva) {
-        this.naMe = name;
-        this.last_Name = last_Name;
-        this.dni = dni;
-        this.phone_Number = phone_Number;
-        this.email = email;
-    }
+
 
     public void setId_Reserva(long id_Reserva) {
         this.id_Reserva = id_Reserva;

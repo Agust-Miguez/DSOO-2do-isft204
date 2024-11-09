@@ -5,7 +5,10 @@
         <group>
             <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/panels/pass_P.java</file>
             <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/controller/controller_Passanger.java</file>
-            <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/hotel2/Hotel2.java</file>
+            <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/entitys/passenger.java</file>
+            <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/DAO/reservation_DAO.java</file>
+            <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/DAO/DAO.java</file>
+            <file>file:/C:/Users/feffo/OneDrive/Documentos/NetBeansProjects/hotel2/src/DAO/passenger_DAO.java</file>
         </group>
     </open-files>
 </project-private>
